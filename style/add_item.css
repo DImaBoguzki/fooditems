@@ -1,0 +1,213 @@
+::placeholder { 
+    color: black;
+    opacity: 0.7; 
+}
+body {
+    background-color: rgba(162, 162, 235, 0.7);
+    direction: rtl;
+}
+.main-input-value {
+    width: 70%;
+    display: inline-block;
+    vertical-align:top;
+    direction: rtl;
+}
+.div-inp-value-basic {
+    display: inline-block;
+    vertical-align:top;
+}
+.items {
+    position: relative;
+    top:0px;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px black;
+    margin-bottom: 10px;
+}
+.input-text, input[type=number],button,select{
+    display: block;
+    width: 200px;
+    height: 50px;
+    font-size: 22px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgba(116, 116, 240, 0.726);
+}
+#btn-add ,#btn-clear,#name,#company {
+    width: 405px;
+}
+button {
+    background-color: gray;
+    cursor: pointer;
+}
+.btn-close {
+    position: absolute;
+    color: white;
+    background-color:red;
+    width: 60px;
+    top:0;
+    right: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 0;
+    box-shadow: 1px 1px 4px black;
+}
+.auto-complete {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+}
+.search-items{
+    position: relative;
+    width: 200px;
+    height: 50px;
+    font-size: 22px;
+    margin:auto;
+    padding: 5px;
+    text-align: right;
+    box-shadow: inset 0 0 5px black;
+}
+.ul-autocomplete {
+    display: none;
+    position: relative;
+    top: 0px;
+    margin:auto;
+    padding: 0px;
+    width: 200px;
+    border: 1px solid black;
+    background-color: white;
+    list-style-type: none;
+    box-shadow: 2px 2px 4px black;
+    z-index: 2;
+}
+.ul-autocomplete li {
+    font-size: 22px;
+    text-align: right;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+.ul-autocomplete li:focus{
+    background-color: aqua;
+}
+.table-item-value {
+    display: none;
+    position: relative;
+    font-size: 22px;
+    margin:auto;
+    width: 200px;
+    padding: 5px;
+    background-color: whitesmoke;
+    box-shadow: inset 0 0 5px black;
+}
+.table-item-value td {
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+.table-item-value input[type=text] {
+    text-align: center;
+}
+@media only screen and (max-width: 750px) {
+    .input-text, input[type=number],button, select, .search-items, .ul-autocomplete {
+        width: 100%;
+    }
+    #btn-add, #btn-clear, #name, #company {
+        width: 100%;
+    }
+    .div-inp-value-basic, .items, .main-input-value {
+        position: relative;
+        width: 100%;
+    }
+    .table-item-value{
+        width: 100%;
+        left: 0;
+    }
+    .auto-complete {
+        position: relative;
+        width: 100%;
+        margin-bottom: 400px;
+    }
+}
+.load-rotate {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    bottom: 40%;
+    left: 45%;
+    z-index: 3;
+    border-top: 5px dotted black;
+    border-left: 5px dotted black;
+    border-right: 5px dotted black;
+    border-bottom: 5px dotted black;
+    border-radius: 45%;
+    animation: doted 3s linear infinite;
+    -webkit-animation: doted 2s linear infinite; /* Safari */
+}
+@keyframes spin {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+/* Safari */
+@-webkit-keyframes spin {
+    0% {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+@keyframes doted {
+    0%{
+    border-top: 20px dotted red;
+    border-right: 15px dotted rgb(82, 13, 13);
+    border-bottom: 10px dotted rgb(24, 6, 6);
+    border-right: 5px dotted black;}
+    25%{
+    border-top: 5px dotted black;
+    border-left: 20px dotted red;
+    border-bottom: 15px dotted rgb(82, 13, 13);
+    border-right: 10px dotted rgb(24, 6, 6);}
+    50%{
+    border-top: 10px dotted rgb(24, 6, 6);
+    border-left: 5px dotted black;
+    border-bottom: 20px dotted red;
+    border-right: 15px dotted rgb(82, 13, 13);;}
+    75%{
+    border-top: 15px dotted rgb(82, 13, 13);
+    border-right: 10px dotted rgb(24, 6, 6);
+    border-bottom: 5px dotted black;
+    border-right: 20px dotted red;}
+    100%{
+    border-top: 20px dotted red;
+    border-right: 15px dotted rgb(82, 13, 13);
+    border-bottom: 10px dotted rgb(24, 6, 6);
+    border-right: 5px dotted black;}
+}
+@-webkit-keyframes doted {
+    0%{
+    border-top: 20px dotted red;
+    border-right: 15px dotted rgb(82, 13, 13);
+    border-bottom: 10px dotted rgb(24, 6, 6);
+    border-right: 5px dotted black;}
+    25%{
+    border-top: 5px dotted black;
+    border-left: 20px dotted red;
+    border-bottom: 15px dotted rgb(82, 13, 13);
+    border-right: 10px dotted rgb(24, 6, 6);}
+    50%{
+    border-top: 10px dotted rgb(24, 6, 6);
+    border-left: 5px dotted black;
+    border-bottom: 20px dotted red;
+    border-right: 15px dotted rgb(82, 13, 13);;}
+    75%{
+    border-top: 15px dotted rgb(82, 13, 13);
+    border-right: 10px dotted rgb(24, 6, 6);
+    border-bottom: 5px dotted black;
+    border-right: 20px dotted red;}
+    100%{
+    border-top: 20px dotted red;
+    border-right: 15px dotted rgb(82, 13, 13);
+    border-bottom: 10px dotted rgb(24, 6, 6);
+    border-right: 5px dotted black;}
+}

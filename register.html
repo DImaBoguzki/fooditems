@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="he">
+    <head>
+        <link rel="stylesheet" type="text/css" href="./style/login.css">
+        <script src="./Script/login.js"></script>
+        <meta charset="utf-8" />
+        <title>התחברות</title>
+    </head>
+    <body onload="checkCookie();">
+        <form method="POST" action="./php/register.php" onsubmit="return foo()">
+            <div id="main-login" class="main-login">
+                <h1>רישום לאתר</h1>
+                <input type="text" id='first_name' name='first_name' placeholder="שם פרטי" onkeypress="checkName(event);">
+                <input type="text" id='last_name' name='last_name' placeholder="שם משפחה" onkeypress="checkName(event);">
+                <input type="text" id='email' name='email' placeholder="Email" >
+                <input type="password" id='pass1' name='password'  placeholder="סיסמא">
+                <input type="password" id='pass2' name='password2' placeholder="חזור על הסיסמא">
+                <input type="number" id="heigth" name="heigth" placeholder="גובה" min="60" max="250">
+                <input type="number" id="weight" name="weight" placeholder="משקל" min="20" max="250">
+                <span style="color: white;margin:0 auto;font-size: 16px;">תאריך לידה</span>
+                <input type="date" class="date" name="bday" id="bday">
+                <div id='radios' style="display: inline-flex;margin: 0 30%">
+                    <div class="radio-item">
+                        <span style="color: white;">נקבה</span>
+                        <input type="radio" name="gender" value="0" >&rlm;
+                    </div>
+                    <div class="radio-item">
+                        <span style="color: white;">זכר</span>
+                        <input type="radio" name="gender" value="1">&rlm;
+                    </div>
+                </div>
+                <button id="btn-ok" onclick="foo()">הרשם</button>
+                <a href="./login.html">?יש לך שם משתמש</a>
+            </div>
+        </form>
+    </body>
+    <script>
+        function errorInput(dom,flag){
+            if(flag==false)
+                dom.style.backgroundColor="rgba(255,0,0,0.9)";
+            else
+                dom.style.backgroundColor="rgba(255,255,255,0.9)";
+        }
+        function foo(){
+            let flag=true;
+            let firstName = document.getElementById("first_name");
+            let lastName = document.getElementById("last_name");
+            let email = document.getElementById("email");
+            let pass1 = document.getElementById("pass1");
+            let pass2 = document.getElementById("pass2");
+            let heigth = document.getElementById("heigth");
+            let weight = document.getElementById("weight");
+            let date = document.getElementById("bday");
+            let gender = document.getElementsByName("gender");
+            //console.log(gender[0].checked)
+            if(isValidName(firstName.value)==false){
+                errorInput(firstName,false);
+                flag=false;
+            }else errorInput(firstName,true);
+            if(isValidName(lastName.value)==false){
+                errorInput(lastName,false);
+                flag=false;
+            }else errorInput(lastName,true);
+            if(isValidEmail(email.value)==false){
+                errorInput(email,false);
+                flag=false;
+            }else errorInput(email,true);
+            if(pass1.value.length==0 || pass1.value.localeCompare(pass2.value)!=0){
+                errorInput(pass1,false);
+                errorInput(pass2,false);
+                flag=false;
+            }
+            else{
+                errorInput(pass1,true);
+                errorInput(pass2,true);
+            }
+            if(heigth.value===""){
+                errorInput(heigth,false);
+                flag=false;
+            }else errorInput(heigth,true);
+            if(weight.value===""){
+                errorInput(weight,false);
+                flag=false;
+            }else errorInput(weight,true);
+            if(date.value===""){
+                errorInput(date,false);
+                flag=false;
+            }else errorInput(date,true);
+            //check gender
+            if(gender[0].checked==false && gender[1].checked==false){
+                document.getElementById("radios").style.border= "2px solid red";
+                flag=false;
+            }else{
+                document.getElementById("radios").style.border= "none";
+            }
+            return flag;
+
+        }
+    </script>
+</html>

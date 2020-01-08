@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="he">
+    <header>
+        <link rel="stylesheet" type="text/css" href="./style/main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="./Script/main.js"></script>
+        <script src="./Script/getData.js"></script>
+        <meta charset="UTF-8">
+        <title>ראשי</title>
+        <style>
+            .calculator-down{
+                position: fixed;
+                top: 15%;
+                left: 40%;
+                z-index: 1;
+            }
+            @keyframes down {
+                from{top: -600px;}
+                to{top:15%;}
+            }
+            @keyframes up {
+                from{top: 15%;}
+                to{top:-600px;}
+            }
+            .btn-fixed{
+                position: fixed;
+                top: 3px;
+                left: 0px;
+                width: 100px;
+                height: 100px;
+                background-color: gray;
+                z-index: 1;
+                opacity: 0.7;
+                box-shadow: 3px 3px 15px black;
+                border: 1px solid black;
+                border-radius: 30%;
+            }
+        </style>
+    </header>
+    <body onload="onLoadIndex()">
+        <div class= "wrapper">
+            <div id="header" class="header">
+                <div class="log-in">
+                    <button  onclick="onDisconnet();">התנתק</button>
+                    <span id="user" class="span-welcome"></span>
+                </div>
+                <div class="navbar">
+                    <button class="btn-nav active" onclick="btnNavBar(event,'info');" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">מידע</button>
+                    <button class="btn-nav" onclick="btnNavBar(event,'BMR');">BMR</button>
+                    <button class="btn-nav" onclick="btnNavBar(event,'BMI');" style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;">BMI</button>
+                </div>
+                <a class="toBuildPage" href="./buildMealPage.html">בניית תפריט</a>
+            </div> <!--end header-->
+            <div class="middle">
+                <div id="info" class="tab-content" style="display: block;right: 0px;"> 
+                    <h1 style="text-align: center;font-size: 50px;">מידע</h1>
+                    <h3>BMI - Body Mass Index</h3>
+                    <p>משקל הגוף משתנה מאדם לאדם ותלוי בגורמים רבים- תזונה, מין, גיל, גנטיקה ועוד.
+                            מקובל להעריך את עודף המשקל באמצעות התייחסות לפרופורציה בין גובהך למשקל שלך.
+                    </p>
+                    <p> לספורטאים מקצוענים המחשבון BMI בדרך כלל לא מתאים, מאחר ויש לספורטאים מסת שריר גדולה מאדם רגיל.</p>
+                    <p>  <span style="color:red;font-weight: bolder; font-size: 24px;">לעוד פרטים</span> <a href="https://he.wikipedia.org/wiki/%D7%9E%D7%93%D7%93_%D7%9E%D7%A1%D7%AA_%D7%92%D7%95%D7%A3" target="_blank"> כנס כאן</a></p>
+                    <h3>BMR - Basal Metabolic Rate</h3>
+                    <p>הוא מחשבון שמודד כמה קלוריות הגוף שלנו שורף במנוחה מוחלטת, כלומר להפעלת הלב, המוח, כליות , וכולי...
+                        לפי הערך  של  הBMR ניתן לבנות תפריט יומי ולהעריך כמה לאכול על מנת לא להשמין או להרזות.
+                    </p>
+                    <p>  <span style="color:red;font-weight: bolder; font-size: 24px;"> לעוד פרטים באנגלית</span> <a href="https://en.wikipedia.org/wiki/Basal_metabolic_rate" target="_blank"> כנס כאן</a></p>
+                </div>
+                <div id="BMR" class="tab-content"> 
+                    <div class="calc-div-tab">
+                        <h1 style="text-align: center;color: whitesmoke;text-shadow: 2px 2px 5px black;">BMR מחשבון</h1>
+                        <select id="bmr-gender">
+                            <option value="0">גבר</option>
+                            <option value="1">אישה</option>
+                        </select> 
+                        <input type="number" id="bmr-weight" placeholder="משקל" >
+                        <input type="number" id="bmr-height" placeholder="גובה">
+                        <input type="number" id="bmr-age" placeholder="גיל">
+                        <button class="btn-calc-res" onclick="bmrCalculate();">חשב</button>
+                        <span id="bmr-label-res" class="label-calc-res"></span>
+                    </div>
+                </div>
+                <div id="BMI" class="tab-content">
+                    <div class="calc-div-tab"> 
+                        <h1 style="text-align: center;color: whitesmoke;text-shadow: 2px 2px 5px black;">BMI מחשבון</h1>
+                        <input type="number" id="bmi-weight" placeholder="משקל">
+                        <input type="number" id="bmi-height" placeholder="גובה">
+                        <button class="btn-calc-res" onclick="bmiCalculate();">חשב</button>
+                        <input class="slider" type="range" id="slider" min="8" max="36" disabled>
+                        <span id="bmi-label-res" class="label-calc-res"></span>
+                    </div>
+                </div>
+            </div ><!--end middle-->
+            <div class="footer">
+                <p style="text-align: center;margin: 8%">ניתן לבנות תפריט תזונה לבדוק את ה BMR וה BMI שלך
+                    <br><sub style="text-shadow:1px 1px 3px black;">הפרוייקט יוצר על ידי דמיטרי בוגוצקי</sub>
+                </p>
+            </div> <!--end footer-->
+        </div> <!-- end wraper-->
+    </body>
+</html>

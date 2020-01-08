@@ -1,0 +1,66 @@
+.auto-complete-list{
+    list-style: none;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 6px black;
+    width: 200px;
+}
+.auto-complete-list > li{
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+.search-item{
+    position: relative;
+    direction: rtl;
+}
+.preview-item-table{
+    background-color: rgb(200,200,200,0.6);
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.preview-item-table tr > td{
+    border-bottom: 1px solid black;
+}
+.preview-item-table tr > th{
+    font-size: 22px;
+}
+#auto-complete-input{
+    outline: none;
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+#weigth-input{
+    outline: none;
+    margin-top: 2px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+.btn-add-item{
+    padding: 5px;
+    background-color: rgba(91, 120, 238, 0.8);
+    border: 1px solid black;
+    border-radius: 3px;
+    box-shadow: 2px 2px 4px black;
+    color: #fff;
+}
+.view-meal-box{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px black;
+    background-color: rgba(255, 255, 255, 0.829);
+}

@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <title>הוספת מוצר</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="./Script/getData.js"></script>
+        <script src="./Script/setData.js"></script>
+        <script src="./Script/editItem.js"></script>
+        <link rel="stylesheet" type="text/css" href="./style/add_item.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <style>
+        </style>
+    </head>
+    <body onkeyup="arrowDownUpAutoCompleteList();">
+        <!--div for wich item user add-->
+        <div class="items" id='items'></div>
+        <!--main add product input values-->
+        <div class="main-input-value" id="main-input-value">
+            <input type="text" class="input-text" placeholder="שם מוצר" id="name" name='inp-basic' style="background-color: rgb(241, 120, 120);">
+            <input type="text" class="input-text" placeholder="חברה" id="company" name='inp-basic' style="background-color: rgb(241, 120, 120);">
+            <!--div-inp-value-basic div of all input of values items-->
+            <div class="div-inp-value-basic" id='div-inp-value-basic'>
+                <input type="number" placeholder="קלוריות" id="calories" name='inp-basic' style="background-color: rgb(241, 120, 120);" step="0.01">
+                <input type="number" placeholder="חלבון" id="protein" name='inp-basic' style="background-color: rgb(241, 120, 120);" step="0.01">
+                <input type="number" placeholder="פחמימות" id="carbohydrates" name='inp-basic' style="background-color: rgb(241, 120, 120);" step="0.01">
+                <input type="number" placeholder="סוכר" id="sugar" name='inp-value' step="0.01">
+                <input type="number" placeholder="סיבים תזונתיים" id="fiber" name='inp-value' step="0.01">
+                <input type="number" placeholder="שומן" id="fats" name='inp-basic' style="background-color: rgb(241, 120, 120);" step="0.01">
+                <input type="number" placeholder="שומן רווי" id="saturated_fat" name='inp-value' step="0.01">
+                <input type="number" placeholder="שומן טראנס" id="trans_fat" name='inp-value' step="0.01">
+                <input type="number" placeholder="כולסטרול" id="cholesterol" name='inp-value' step="0.01">
+            </div> <!--END div div-inp-value-basic-->
+            <!--div-inp-value-no-basic div of all input of values items-->
+            <div class="div-inp-value-basic" id="div-inp-value-no-basic">
+                    <input type="number" placeholder="נתרן" id="sodium" name='inp-value' step="0.01">
+                    <input type="number" placeholder="סידן" id="calcium" name='inp-value' step="0.01">
+                    <select id='type' style="background-color: rgb(241, 120, 120);">
+                        <option value="type" selected>סוג</option>
+                        <option value="tevoni">טבעוני</option>
+                        <option value="zimhoni">צמחוני</option>
+                        <option value="basari">בשרי</option>
+                    </select>
+                    <select id='gluten' style="background-color: rgb(241, 120, 120);">
+                        <option value="gluten" selected>גלוטן</option>
+                        <option value="yes">כן</option>
+                        <option value="no">לא</option>
+                    </select>
+                    <select id='milk' style="background-color: rgb(241, 120, 120);">
+                        <option value="milk" selected>חלבי</option>
+                        <option value="yes">כן</option>
+                        <option value="no">לא</option>
+                    </select>
+            </div>
+        <button id="btn-add" onclick="btnAddItem();">הוסף</button>
+        <button id="btn-clear" onclick="clearInputs();" style="background-color:red;color:white;">נקה</button>
+        </div><!--END main add product input values-->
+
+        <!--serach item with auto complete text-->
+        <div id='auto-complete' class="auto-complete" >
+                <h1 id='lbl-count-items'></h1><br>
+                <script>getCountItems();</script>
+                <input type="text" id='search-items' class='search-items' list="auto-complete-list" autocomplete="off" placeholder="חפש פריט" onfocus="searchInputFocus();" onkeyup="autoComplete(event);">
+                <ul class="ul-autocomplete" id='ul-autocomplete'></ul>
+                <table id='table-item-value' class="table-item-value"></table>
+        </div><!--END search item-->
+        <script>
+            var divItems = document.getElementById('items');
+            window.addEventListener('online',function(){
+                divItems.innerHTML='<h1>מחובר</h1>';
+                setTimeout(function(){
+                    divItems.innerHTML='';
+                },3000);
+            });
+            window.addEventListener('offline',function(){
+                divItems.innerHTML='<h1>אין חיבור לרשת</h1>';
+            });
+            function waiting(){
+                var div = document.createElement('DIV');
+                div.setAttribute('class','load-rotate');
+                div.setAttribute('id','load-rotate');
+                div.scrollIntoView(false);
+                document.body.appendChild(div);
+            }
+            function removeWaiting(){
+                document.getElementById('load-rotate').remove();
+            }
+        </script>
+    </body>
+</html>

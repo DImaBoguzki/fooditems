@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="./style/main.css">
+  <link rel="stylesheet" type="text/css" href="./style/buildMeal.css">
+  <title>בניית תפריט</title>
+  <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+  <script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+  <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="header" class="header">
+        <div class="log-in">
+            <span id="user" class="span-welcome">עמוד בניית תפריט</span>
+        </div>
+        <a class="toBuildPage" href="./index.html">לדף הראשי</a>
+    </div>
+    <div id="root"></div>
+
+<script type="text/babel">
+function convertNameValue(str) {
+    switch(str){
+        case 'calories':        return 'קלוריות';
+        case 'proteins':        return 'חלבון';
+        case 'carbohydrates':   return 'פחמימות';
+        case 'fats':            return 'שומן';
+        case 'saturated_fat':   return 'שומן רווי';
+        case 'trans_fat':       return 'שומן טראנס';
+        case 'cholesterol':     return 'כולוסטרול';
+        case 'fiber':           return 'סיבים תזונתיים';
+        case 'sugar':           return 'סוכר';
+        case 'sodium':          return 'נתרן';
+        case 'calcium':         return 'סידן';
+        default :               return null;
+    }
+}
+function fixNumber(n){
+    if((n % 1) === 0)
+        return n;
+    else
+        return (n.toFixed(1));
+}
+const rootElement = document.getElementById('root');
+/*חיפוש עם השלמה אוטומטית*/
+class SearchItem extends React.Component {
+    state = {
+        nameItems:[],
+        selcetIdItem: -1,
+        display: "none"
+    }
+    getNames=(str)=>{
+        if(str==='')
+            return;
+        $.post("./main.php",{action:"autoComplete",str:str,len:str.length})
+        .done((data)=>{
+            this.setState({nameItems:JSON.parse(data),display:"block"});
+        })
+        .fail((error)=>{console.log(error);})
+    }
+    onSelect=(id)=>{
+        this.setState({selcetIdItem:id,nameItems:[],display:"none"})
+    }
+    render() { 
+        return (
+            <div class="search-item">
+                <input type="text" id="auto-complete-input" placeholder="חפש פריט" onKeyUp={(e)=>{this.getNames(e.target.value)}}/>
+                <ul class="auto-complete-list" style={{display: this.state.display}}>
+                    {
+                    this.state.nameItems.map((el)=>{
+                        return <li id={el.id} key={el.id} onClick={(e)=>{this.onSelect(e.target.id)}} >{el.name}</li>
+                    })
+                    }
+                </ul>
+                <ViewItem item={this.state.selcetIdItem}/>
+            </div>
+        );
+    } 
+}
+/*מחלקה המציגה את המוצר*/
+class ViewItem extends React.Component {
+    state={
+        item:{},
+        items:[],
+        weight: 100,
+        display:"none"
+    }
+    componentWillReceiveProps(nextProps) {
+        this.getItem(nextProps.item);
+    }
+    getItem=(id)=>{
+        $.post("./main.php",{action:"getItem",id_item:id})
+        .done((data)=>{
+            this.setState({item:JSON.parse(data),display:"table"});
+        })
+        .fail((error)=>{
+            console.log(error);
+        })
+    }
+    onChangeWeigth(w){
+        if(w===''){
+            this.setState({weight:100});
+            return;
+        }
+        this.setState({weight:w});
+    }
+    onAddItem=()=>{
+        let arrItems = this.state.items;
+        let objItems = this.state.item;
+        objItems.weight = this.state.weight;
+        arrItems.push(this.state.item);
+        this.setState({items:arrItems,display:"none"});
+    }
+    render(){
+        return(
+            <div>
+                <table class="preview-item-table" style={{display:this.state.display}}>
+                    <thead>
+                        <tr><th>{this.state.item.name}</th></tr>
+                        <tr><th>{this.state.item.company!=0 ? this.state.item.company : null}</th></tr>
+                        <tr><th><input id="weigth-input" type="number"min="1" step="1" placeholder="גרם"onChange={(e)=>{this.onChangeWeigth(e.target.value)}}/></th></tr>
+                    </thead>
+                    <tbody>
+                    {
+                        Object.entries(this.state.item).map(([key,value],i)=>{
+                            return (
+                                convertNameValue(key) != null ?
+                                <tr key={i}><td>{convertNameValue(key)}</td><td>{fixNumber(value*((this.state.weight/100)))}</td></tr>
+                                : null);
+                        })
+                    }
+                    </tbody>
+                    <tr><th><button class="btn-add-item" onClick={this.onAddItem}>הוסף לתפריט</button></th></tr>
+                </table>
+                <ViewMeal items={this.state.items}/>
+            </div>
+        );
+    }
+}
+class ViewMeal extends React.Component{
+    state={
+        meal: {},
+        display: "none"
+    }
+    componentWillReceiveProps(nextProps) {
+        let meal = {
+            'calories': 0,
+            'proteins': 0,
+            'carbohydrates': 0,
+            'fats': 0,
+            'saturated_fat': 0, 
+            'trans_fat': 0, 
+            'cholesterol': 0,   
+            'fiber': 0,         
+            'sugar': 0,     
+            'sodium': 0,     
+            'calcium': 0,  
+        }
+        nextProps.items.map((item)=>{
+            Object.entries(item).map(([key,value])=>{
+                if(convertNameValue(key)!=null)
+                    meal[key]+=parseFloat(fixNumber(value*(item.weight/100)));
+                })
+        })
+        this.setState({meal:meal,display:"table"});
+    }
+    onSaveMeal=()=>{
+        if(this.props.items.length==0)
+            return;
+        let arrMeal = [];
+        this.props.items.forEach(el => {
+            arrMeal.push({id:el.id,weight:el.weight});
+        });
+        let objUser = JSON.parse(localStorage.getItem('user'));
+        $.post("./main.php",{
+            action:'save_meal',
+            meal_item: JSON.stringify(arrMeal),
+            id_user: objUser.id
+        })
+        .done((data)=>{
+            console.log(data);
+        })
+        .fail((error)=>{console.log(error)});
+    }
+    render(){
+        return(
+            <div class="view-meal-box" style={{display:this.state.display}}>
+                <table class="preview-item-table">
+                    <thead>
+                    <tr><th>הארוחה שלך</th></tr>
+                    </thead>
+                    <tbody>
+                    {
+                        Object.entries(this.state.meal).map(([key,value],i)=>{
+                            return (
+                                convertNameValue(key) != null ?
+                                <tr key={i}><td>{convertNameValue(key)}</td><td>{value.toFixed(1)}</td></tr>
+                                : null);
+                        })
+                    }
+                    <tr><th colspan="2"><button class="btn-add-item" style={{backgroundColor:"rgba(255,0,0,0.7)"}} onClick={this.onSaveMeal}>שמור ארוחה</button></th></tr>
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+}
+function App(){
+  return(
+  <div>
+    <SearchItem />
+  </div>
+  )
+}
+
+
+ReactDOM.render(<App />,rootElement);
+</script>
+
+</body>
+
+</html>
