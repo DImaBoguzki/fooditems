@@ -28,6 +28,14 @@
             }
         </style>
     </head>
+    <!--check if to user there permission-->
+    <script>
+        let user = JSON.parse(localStorage.getItem('user'));
+        if(user.permission==0){
+            window.location.href="./index.html";
+            alert("אין לך הרשאה להכנס לדף זה")
+        }
+    </script>
     <body onkeyup="arrowDownUpAutoCompleteList();">
         <a href="./index.html" class="link-add-item">חזרה לדף הראשי</a>
         <!--div for wich item user add-->
