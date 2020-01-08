@@ -9,9 +9,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
         <style>
+            .link-add-item{
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                bottom: 10px;
+                left: 40%;
+                border: 1px solid black;
+                border-radius: 7px;
+                box-shadow: 2px 2px 4px black;
+                background-color: rgb(224, 0, 50);
+                color: white;
+                font-size: 26px;
+                padding: 15px;
+                text-decoration: none;
+                text-shadow: 2px 2px black;
+            }
         </style>
     </head>
     <body onkeyup="arrowDownUpAutoCompleteList();">
+        <a href="./index.html" class="link-add-item">חזרה לדף הראשי</a>
         <!--div for wich item user add-->
         <div class="items" id='items'></div>
         <!--main add product input values-->

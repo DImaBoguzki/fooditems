@@ -46,7 +46,7 @@ function fixNumber(n){
     else
         return (n.toFixed(1));
 }
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById('root-r');
 /*חיפוש עם השלמה אוטומטית*/
 class SearchItem extends React.Component {
     state = {
@@ -114,7 +114,8 @@ class ViewItem extends React.Component {
         let objItems = this.state.item;
         objItems.weight = this.state.weight;
         arrItems.push(this.state.item);
-        this.setState({items:arrItems,display:"none"});
+        this.setState({items:arrItems,display:"none",weight:100});
+        document.getElementById('weigth-input').value="";
     }
     render(){
         return(

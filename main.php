@@ -34,6 +34,9 @@ if(isset($_POST['action']) === true){
         case 'save_meal':
             echo $db->setMeal($_POST['meal_item'],$_POST['id_user']);
             break;
+        case 'delete_item':
+            echo $db->deleteItem($_POST['id_item']);
+            break;
     }
     return;
 }

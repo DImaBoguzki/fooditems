@@ -51,6 +51,23 @@ function getItemByID(id){
     })
 
 }
+// on delete item
+function onDeleteItem(id){
+    if(!confirm("אתה בטוח רוצה למחוק פריט זה?")){
+        return;
+    }
+    $.post('./main.php',{action:'delete_item',id_item:id})
+    .done((data)=>{
+        if(data==1){
+            alert("הפריט נמחק");
+            document.getElementById('table-item-value').innerHTML="";
+        }
+        else{
+            alert("תקלה במחיקת פריט");
+        }
+    })
+    .fail((error)=>{console.log(error)});
+}
 /*get items and set table of value of item */
 function previewItemToTable(idItem, nameItem) {
     document.getElementById('search-items').value = nameItem;
@@ -59,17 +76,17 @@ function previewItemToTable(idItem, nameItem) {
     $.post(
         './main.php',
         {action : 'getItem', id_item : idItem},
-        function(data) {
+        (data)=> {
             //set table value
             var table = document.getElementById('table-item-value');
             table.style.border = '1px solid black';
             table.innerHTML=''; //clear table before set new item
             // set table all value of item
-            Object.keys(data).forEach(function(key) {
+            Object.keys(data).forEach((key)=> {
                 if(convertNameValue(key) != null) { // if type value is for table
-                    var tr = document.createElement('tr');
-                    var tdValue = document.createElement('td');
-                    var tdKey = document.createElement('td');
+                    let tr = document.createElement('tr');
+                    let tdValue = document.createElement('td');
+                    let tdKey = document.createElement('td');
 
                     tdValue.setAttribute('nameItem',data['name']);
                     tdValue.setAttribute('ondblclick',"editValue(event,'dbl');");
@@ -93,6 +110,17 @@ function previewItemToTable(idItem, nameItem) {
                     table.appendChild(tr);
                 }
             });
+            let tr = document.createElement('tr');
+            let tdValue = document.createElement('td');
+            let btn = document.createElement("BUTTON");
+            btn.innerHTML="מחק";
+            tdValue.setAttribute('colspan',"2");
+            btn.setAttribute("onclick", "onDeleteItem("+data['id']+")");
+            btn.setAttribute("style", "background-color:red");
+            tdValue.appendChild(btn);
+            tr.appendChild(tdValue);
+            table.appendChild(tr);
+
         },'JSON'
     );
 }

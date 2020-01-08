@@ -130,7 +130,6 @@ function clearInputs() {
     document.getElementById('milk').value = 'milk';
     for(var i=0;i<allInput.length;i++)
         allInput[i].value='';
-    resetArrayVtmnMnrl();
 }
 
 

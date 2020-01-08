@@ -124,6 +124,16 @@ class DB {
             echo FALSE;
         }
     }
+    // delete item by id
+    public function deleteItem($id){
+        $sql = "DELETE FROM items WHERE id='$id'";
+        if ($this->conn->query($sql) === TRUE) {
+            return 1;
+        } else {
+            error_log(date("Y-m-d H:i")."\nerror on delete item: ".mysqli_error($this->conn)."\n", 3,"./php/log/error.log");
+            return -1;
+        }
+    }
     // get item by name item and company item if return -1 not fount else return id item
     public function getIDitem($name, $company) {
         $res = $this->conn->query("SELECT id FROM items WHERE name='$name' AND company='$company'");
