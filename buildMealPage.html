@@ -183,7 +183,10 @@ class ViewMeal extends React.Component{
             id_user: objUser.id
         })
         .done((data)=>{
-            console.log(data);
+            if(data==1){
+                alert("הארוחה נשמרה בהצלחה");
+                this.setState({meal:{},display:"none"});
+            }
         })
         .fail((error)=>{console.log(error)});
     }
