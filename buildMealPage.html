@@ -46,7 +46,7 @@ function fixNumber(n){
     else
         return (n.toFixed(1));
 }
-const rootElement = document.getElementById('root-r');
+const rootElement = document.getElementById('root');
 /*חיפוש עם השלמה אוטומטית*/
 class SearchItem extends React.Component {
     state = {
@@ -117,6 +117,9 @@ class ViewItem extends React.Component {
         this.setState({items:arrItems,display:"none",weight:100});
         document.getElementById('weigth-input').value="";
     }
+    handleOnClearItems=()=>{
+        this.setState({items:[]});
+    }
     render(){
         return(
             <div>
@@ -138,7 +141,7 @@ class ViewItem extends React.Component {
                     </tbody>
                     <tr><th><button class="btn-add-item" onClick={this.onAddItem}>הוסף לתפריט</button></th></tr>
                 </table>
-                <ViewMeal items={this.state.items}/>
+                <ViewMeal items={this.state.items} clearItems={this.handleOnClearItems}/>
             </div>
         );
     }
@@ -149,6 +152,10 @@ class ViewMeal extends React.Component{
         display: "none"
     }
     componentWillReceiveProps(nextProps) {
+        if(nextProps.items.length==0){
+            this.setState({display:"none"});
+            return;
+        }
         let meal = {
             'calories': 0,
             'proteins': 0,
@@ -187,6 +194,7 @@ class ViewMeal extends React.Component{
             if(data==1){
                 alert("הארוחה נשמרה בהצלחה");
                 this.setState({meal:{},display:"none"});
+                this.props.clearItems();
             }
         })
         .fail((error)=>{console.log(error)});
