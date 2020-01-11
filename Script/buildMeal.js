@@ -25,32 +25,37 @@ class SearchItem extends React.Component {
     state = {
         nameItems:[],
         selcetIdItem: -1,
-        display: "none"
+        displayList: "none",
     }
     getNames=(str)=>{
         if(str==='')
             return;
         $.post("./main.php",{action:"autoComplete",str:str,len:str.length})
         .done((data)=>{
-            this.setState({nameItems:JSON.parse(data),display:"block"});
+            this.setState({nameItems:JSON.parse(data),displayList:"block"});
         })
         .fail((error)=>{console.log(error);})
     }
     onSelect=(id)=>{
-        this.setState({selcetIdItem:id,nameItems:[],display:"none"})
+        this.setState({selcetIdItem:id,nameItems:[],displayList:"none"})
     }
     render() { 
         return (
-            <div class="search-item">
-                <input type="text" id="auto-complete-input" placeholder="חפש פריט" onKeyUp={(e)=>{this.getNames(e.target.value)}}/>
-                <ul class="auto-complete-list" style={{display: this.state.display}}>
-                    {
-                    this.state.nameItems.map((el)=>{
-                        return <li id={el.id} key={el.id} onClick={(e)=>{this.onSelect(e.target.id)}} >{el.name}</li>
-                    })
-                    }
-                </ul>
-                <ViewItem item={this.state.selcetIdItem}/>
+            <div class="my-meals-wrapper" style={{display:this.props.display}}>
+                <div class="my-meals-content">
+                    <button class="btn-close" onClick={this.props.onClose}>X</button>
+                    <div class="search-item">
+                        <input type="text" id="auto-complete-input" placeholder="חפש פריט" onKeyUp={(e)=>{this.getNames(e.target.value)}}/>
+                        <ul class="auto-complete-list" style={{display: this.state.displayList}}>
+                            {
+                            this.state.nameItems.map((el)=>{
+                                return <li id={el.id} key={el.id} onClick={(e)=>{this.onSelect(e.target.id)}} >{el.name}</li>
+                            })
+                            }
+                        </ul>
+                    </div>
+                    <ViewItem item={this.state.selcetIdItem}/>
+                </div>
             </div>
         );
     } 
@@ -95,7 +100,7 @@ class ViewItem extends React.Component {
     }
     render(){
         return(
-            <div>
+            <div style={{marginTop:'49px',marginRight:'5px'}}>
                 <table class="preview-item-table" style={{display:this.state.display}}>
                     <thead>
                         <tr><th>{this.state.item.name}</th></tr>
@@ -126,7 +131,6 @@ class ViewMeal extends React.Component{
     }
     componentWillReceiveProps(nextProps) {
         if(nextProps.items.length==0){
-            this.setState({display:"none"});
             return;
         }
         let meal = {
@@ -172,6 +176,23 @@ class ViewMeal extends React.Component{
         })
         .fail((error)=>{console.log(error)});
     }
+    onClearMeal=()=>{
+        let meal = {
+            'calories': 0,
+            'proteins': 0,
+            'carbohydrates': 0,
+            'fats': 0,
+            'saturated_fat': 0, 
+            'trans_fat': 0, 
+            'cholesterol': 0,   
+            'fiber': 0,         
+            'sugar': 0,     
+            'sodium': 0,     
+            'calcium': 0,  
+        }
+        this.setState({meal:meal});
+        this.props.clearItems();
+    }
     render(){
         return(
             <div class="view-meal-box" style={{display:this.state.display}}>
@@ -188,6 +209,7 @@ class ViewMeal extends React.Component{
                                 : null);
                         })
                     }
+                    <tr><th colspan="2"><button class="btn-add-item" style={{backgroundColor:"rgba(0,0,255,0.7)"}} onClick={this.onClearMeal}>נקה</button></th></tr>
                     <tr><th colspan="2"><button class="btn-add-item" style={{backgroundColor:"rgba(255,0,0,0.7)"}} onClick={this.onSaveMeal}>שמור ארוחה</button></th></tr>
                     </tbody>
                 </table>

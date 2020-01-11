@@ -14,10 +14,11 @@
   <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/babel" src="./Script/buildMeal.js"></script>
+  <script type="text/babel" src="./Script/my_meal.js"></script>
 </head>
 
 <body>
-    <div id="header" class="header">
+    <div id="header" class="header" style="height:'20vh'">
         <div class="log-in">
             <span id="user" class="span-welcome">עמוד בניית תפריט</span>
         </div>
@@ -27,12 +28,34 @@
 
     <script type="text/babel">
     const rootElement = document.getElementById('root');
-        class App extends React.Component{
-            render(){
+        class App extends React.Component  {
+                state={
+                    displayMyMeal: 'none',
+                    displaySearchItem: 'none'
+                }
+                onCloseMyMeal=()=>{
+                    this.setState({displayMyMeal:"none"});
+                }
+                onCloseSearchItem=()=>{
+                    this.setState({displaySearchItem:"none"});
+                }
+                onOpenSearchItem=()=>{
+                    this.setState({displaySearchItem:"flex"});
+                }
+                onOpenMyMeal=()=>{
+                    this.setState({displayMyMeal:"flex"});
+                }
+                render(){
                 return(
-                    <SearchItem/>
+                    <div style={{position: 'relative',width:'100%',height:'80vh'}}>
+                        <div>
+                            <button onClick={this.onOpenSearchItem}>בנית תפריט</button>
+                            <button onClick={this.onOpenMyMeal}>היסטורית ארוחות</button>
+                        </div>
+                        <MyMeal display={this.state.displayMyMeal} onClose={this.onCloseMyMeal}/>
+                        <SearchItem display={this.state.displaySearchItem} onClose={this.onCloseSearchItem}/>
+                    </div>
                 );
-
             }
         }
         ReactDOM.render(<App />,rootElement);
