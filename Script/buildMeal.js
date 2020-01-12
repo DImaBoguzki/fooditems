@@ -54,7 +54,7 @@ class SearchItem extends React.Component {
                             }
                         </ul>
                     </div>
-                    <ViewItem item={this.state.selcetIdItem}/>
+                    {<ViewItem item={this.state.selcetIdItem}/>}
                 </div>
             </div>
         );
@@ -72,6 +72,8 @@ class ViewItem extends React.Component {
         this.getItem(nextProps.item);
     }
     getItem=(id)=>{
+        if(id==-1)
+            return;
         $.post("./main.php",{action:"getItem",id_item:id})
         .done((data)=>{
             this.setState({item:JSON.parse(data),display:"table"});

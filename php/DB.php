@@ -4,12 +4,14 @@ date_default_timezone_set('Asia/Jerusalem');
 class DB {
     private $_conn = null;
     function __construct(){
-        $this->conn = new mysqli('localhost','root','');
+        //$this->conn = new mysqli('localhost','root','');
+        $this->conn = new mysqli('lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com','hsfu2avvnb9njiv1','uetb2wugwn7epo8e');
         if($this->conn->connect_errno)
             die('Connected error!');
         else {
             $this->conn->set_charset("utf8");
-            mysqli_select_db($this->conn,"food_items");
+            mysqli_select_db($this->conn,"edcxrjkh7rhbny9o");
+            //mysqli_select_db($this->conn,"food_items");
         }
     }
     public function insertClient($fn,$ln,$date,$weight,$heigth,$email,$pass,$gender){

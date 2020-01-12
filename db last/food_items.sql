@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2020 at 01:55 PM
+-- Generation Time: Jan 12, 2020 at 09:57 AM
 -- Server version: 8.0.13
 -- PHP Version: 7.3.1RC1
 
@@ -46,7 +46,8 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`id`, `first_name`, `last_name`, `date`, `weight`, `heigth`, `password`, `permission`, `gender`, `email`) VALUES
-(30, 'דימה', 'בוגוצקי', '1986-07-25', 75, 170, '$2y$10$SIFw1IcqudMdFZkevujyieHt380qzOtXlWn9FIAbPJVqXojLYSjgK', 0, 1, 'dimaboguzki@gmail.com');
+(30, 'דימה', 'בוגוצקי', '1986-07-25', 75, 170, '$2y$10$SIFw1IcqudMdFZkevujyieHt380qzOtXlWn9FIAbPJVqXojLYSjgK', 1, 1, 'dimaboguzki@gmail.com'),
+(31, 'דימה', 'בוגוצקי', '1986-07-25', 75, 169, '$2y$10$jPkakveMATJh38XModsQvOtrhLeiKw4WS/SipW3nILUZq/ncdcwHO', 0, 1, 'dimaboguzki@hotmail.com');
 
 -- --------------------------------------------------------
 
@@ -110,7 +111,6 @@ INSERT INTO `items` (`id`, `name`, `company`, `calories`, `proteins`, `carbohydr
 (29, 'דבש טהור', 'לייף', 320, 0, 80, 0, 0, b'0', b'0', 0, 0, 0, 0, 0, 10, 0),
 (30, 'דגני בוקר CRUNCH', 'נסטלה', 389, 7.4, 72.7, 7.6, 0, b'1', b'0', 2, 0.5, 2.5, 7.2, 24.9, 17, 578),
 (31, 'דגני בוקר קוקומן', 'תלמה', 393, 9.2, 85.7, 1.5, 0, b'1', b'0', 0, 0, 0, 4.1, 19.9, 336, 0),
-(32, 'דוגמא', '0', 1895, 44, 3, 4, 1, b'1', b'1', 5, 99, 7, 8, 9, 10, 11),
 (33, 'דוריטוס גריל', 'עלית', 533, 8.5, 64, 27, 0, b'0', b'0', 3.3, 0.5, 2.5, 0, 2.2, 504, 0),
 (34, 'הרינג מעושן בשמן צמחי', 'בריוויס וילניס', 279, 18, 0, 23, 1, b'0', b'0', 3.4, 0.5, 70, 0, 0, 440, 0),
 (35, 'חומוס אחלה', 'שטראוס', 191, 8.6, 14.5, 10.9, 0, b'0', b'0', 1.9, 0.5, 2.5, 0, 1.2, 393, 0),
@@ -252,7 +252,6 @@ INSERT INTO `items` (`id`, `name`, `company`, `calories`, `proteins`, `carbohydr
 (177, 'חטיף שיבולת שועל עם קינמון', 'Nature Valley', 461, 8.7, 63, 18, 0, b'1', b'0', 2.1, 0.5, 2.5, 6.3, 0, 271, 0),
 (178, 'עוגיות מזרחיות שומשום', 'עבאדי', 510, 13, 62, 22, 0, b'1', b'0', 3.8, 0.5, 2.5, 4.9, 0, 536, 0),
 (179, 'מיץ תפוחים', 'פרי מור', 47, 0, 11, 0, 0, b'0', b'0', 0, 0, 0, 0, 0, 0, 0),
-(180, 'דוגמא', '1', 1, 1, 1, 1, 0, b'0', b'0', 0, 0, 0, 0, 0, 0, 0),
 (181, 'קבב בקר זהב', 'זוגלובק', 244, 14, 2, 20, 2, b'0', b'0', 8, 1.5, 65, 0, 0.7, 0, 560),
 (182, 'עוגיות מחיטה מלאה', 'שופרסל', 467, 7.6, 64.1, 18.6, 0, b'1', b'0', 8.7, 0.5, 10, 6.5, 19.8, 400, 0),
 (183, 'PRO שוקו וניל', 'יטבתה', 69, 7.2, 6.7, 1.5, 1, b'0', b'1', 0, 0, 0, 0.3, 6.4, 45, 200),
@@ -288,7 +287,16 @@ CREATE TABLE `meal` (
 INSERT INTO `meal` (`id`, `date`, `id_client`) VALUES
 (24, '2020-01-08 13:35:00', 30),
 (25, '2020-01-08 15:46:00', 30),
-(26, '2020-01-08 15:48:00', 30);
+(26, '2020-01-08 15:48:00', 30),
+(27, '2020-01-09 09:35:00', 30),
+(28, '2020-01-09 09:36:00', 30),
+(29, '2020-01-09 09:43:00', 30),
+(30, '2020-01-09 09:46:00', 30),
+(31, '2020-01-09 10:01:00', 30),
+(32, '2020-01-11 10:35:00', 30),
+(33, '2020-01-11 12:33:00', 30),
+(34, '2020-01-11 12:40:00', 30),
+(35, '2020-01-11 12:48:00', 30);
 
 -- --------------------------------------------------------
 
@@ -312,7 +320,25 @@ INSERT INTO `meal_item` (`id_meal`, `id_item`, `gram`) VALUES
 (25, 165, 100),
 (25, 2, 100),
 (26, 38, 200),
-(26, 4, 150);
+(26, 4, 150),
+(27, 89, 20),
+(27, 38, 150),
+(27, 190, 5),
+(28, 89, 20),
+(28, 38, 150),
+(28, 190, 5),
+(28, 101, 150),
+(29, 2, 50),
+(29, 37, 220),
+(30, 162, 100),
+(30, 11, 100),
+(31, 89, 100),
+(32, 89, 150),
+(32, 163, 250),
+(32, 92, 100),
+(33, 89, 100),
+(34, 163, 100),
+(35, 9, 100);
 
 --
 -- Indexes for dumped tables
@@ -353,19 +379,19 @@ ALTER TABLE `meal_item`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
 
 --
 -- AUTO_INCREMENT for table `meal`
 --
 ALTER TABLE `meal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables
