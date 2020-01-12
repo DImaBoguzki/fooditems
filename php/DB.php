@@ -5,12 +5,12 @@ class DB {
     private $_conn = null;
     function __construct(){
         //$this->conn = new mysqli('localhost','root','');
-        $this->conn = new mysqli('lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com','hsfu2avvnb9njiv1','uetb2wugwn7epo8e');
+        $this->conn = new mysqli('kcpgm0ka8vudfq76.chr7pe7iynqr.eu-west-1.rds.amazonaws.com','wyiy1lfip0r1xowb','fbncp44fm0xh4mwt');
         if($this->conn->connect_errno)
             die('Connected error!');
         else {
             $this->conn->set_charset("utf8");
-            mysqli_select_db($this->conn,"edcxrjkh7rhbny9o");
+            mysqli_select_db($this->conn,"s9mcqbi68iftky1b");
             //mysqli_select_db($this->conn,"food_items");
         }
     }
