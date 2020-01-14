@@ -20,6 +20,12 @@ function fixNumber(n){
     else
         return (n.toFixed(1));
 }
+function onSppiner(){
+    document.getElementById("spinner").style.display="block";
+}
+function offSpinner(){
+    document.getElementById("spinner").style.display="none";
+}
 /*חיפוש עם השלמה אוטומטית*/
 class SearchItem extends React.Component {
     state = {
@@ -30,11 +36,16 @@ class SearchItem extends React.Component {
     getNames=(str)=>{
         if(str==='')
             return;
+        onSppiner();
         $.post("./main.php",{action:"autoComplete",str:str,len:str.length})
         .done((data)=>{
             this.setState({nameItems:JSON.parse(data),displayList:"block"});
+            offSpinner();
         })
-        .fail((error)=>{console.log(error);})
+        .fail((error)=>{
+            console.log(error);
+            offSpinner();
+        })
     }
     onSelect=(id)=>{
         this.setState({selcetIdItem:id,nameItems:[],displayList:"none"})
@@ -56,6 +67,7 @@ class SearchItem extends React.Component {
                     </div>
                     {<ViewItem item={this.state.selcetIdItem}/>}
                 </div>
+                <div id='spinner' class="spinner"/>
             </div>
         );
     } 
@@ -74,12 +86,15 @@ class ViewItem extends React.Component {
     getItem=(id)=>{
         if(id==-1)
             return;
+            onSppiner();
         $.post("./main.php",{action:"getItem",id_item:id})
         .done((data)=>{
             this.setState({item:JSON.parse(data),display:"table"});
+            offSpinner();
         })
         .fail((error)=>{
             console.log(error);
+            offSpinner();
         })
     }
     onChangeWeigth(w){
@@ -159,6 +174,7 @@ class ViewMeal extends React.Component{
     onSaveMeal=()=>{
         if(this.props.items.length==0)
             return;
+        onSppiner();
         let arrMeal = [];
         this.props.items.forEach(el => {
             arrMeal.push({id:el.id,weight:el.weight});
@@ -175,8 +191,12 @@ class ViewMeal extends React.Component{
                 this.setState({meal:{},display:"none"});
                 this.props.clearItems();
             }
+            offSpinner();
         })
-        .fail((error)=>{console.log(error)});
+        .fail((error)=>{
+            console.log(error);
+            offSpinner();
+        })
     }
     onClearMeal=()=>{
         let meal = {
