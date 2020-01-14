@@ -15,6 +15,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/babel" src="./Script/buildMeal.js"></script>
   <script type="text/babel" src="./Script/my_meal.js"></script>
+  <script src="./Script/main.js"></script>
 </head>
 
 <body>
@@ -27,6 +28,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
+    appendSpinner();
     const rootElement = document.getElementById('root');
         class App extends React.Component  {
                 state={

@@ -20,12 +20,6 @@ function fixNumber(n){
     else
         return (n.toFixed(1));
 }
-function onSppiner(){
-    document.getElementById("spinner").style.display="block";
-}
-function offSpinner(){
-    document.getElementById("spinner").style.display="none";
-}
 /*חיפוש עם השלמה אוטומטית*/
 class SearchItem extends React.Component {
     state = {
@@ -67,7 +61,6 @@ class SearchItem extends React.Component {
                     </div>
                     {<ViewItem item={this.state.selcetIdItem}/>}
                 </div>
-                <div id='spinner' class="spinner"/>
             </div>
         );
     } 

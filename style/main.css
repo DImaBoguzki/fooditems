@@ -269,3 +269,22 @@ hr {
     }
     
 }
+.spinner {
+  display: none;
+  box-sizing: border-box;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #000;
+  z-index: 2;
+  animation: spinner 1s linear infinite;
+}
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}

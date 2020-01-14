@@ -1,3 +1,15 @@
+function appendSpinner(){
+    let spinner = document.createElement('div');
+    spinner.setAttribute("class","spinner");
+    spinner.setAttribute("id","spinner");
+    document.body.appendChild(spinner);
+}
+function onSppiner(){
+    document.getElementById("spinner").style.display="block";
+}
+function offSpinner(){
+    document.getElementById("spinner").style.display="none";
+}
 function onLoadIndex(){
     let obj = localStorage.getItem('user');
     if(obj===null)

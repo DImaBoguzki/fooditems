@@ -2,11 +2,14 @@
 <html lang="he">
     <head>
         <link rel="stylesheet" type="text/css" href="./style/login.css">
+        <link rel="stylesheet" type="text/css" href="./style/main.css">
         <script src="./Script/login.js"></script>
+        <script src="./Script/main.js"></script>
         <meta charset="utf-8" />
         <title>התחברות</title>
     </head>
     <body onload="checkCookie();">
+        <script>appendSpinner();</script>
         <form method="POST" action="./php/register.php" onsubmit="return foo()">
             <div id="main-login" class="main-login">
                 <h1>רישום לאתר</h1>
@@ -93,6 +96,8 @@
             }else{
                 document.getElementById("radios").style.border= "none";
             }
+            if(flag==true)
+                onSppiner();
             return flag;
 
         }
