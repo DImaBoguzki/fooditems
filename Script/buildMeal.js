@@ -147,7 +147,6 @@ class ViewItem extends React.Component {
 class ViewMeal extends React.Component{
     state={
         meal: {},
-        display: "none"
     }
     componentWillReceiveProps(nextProps) {
         let meal = {
@@ -164,7 +163,7 @@ class ViewMeal extends React.Component{
             'calcium': 0,  
         }
         if(nextProps.items.length==0){
-            this.setState({meal:meal,display:"table"});
+            this.setState({meal:meal});
             return;
         }
         nextProps.items.map((item)=>{
@@ -173,7 +172,7 @@ class ViewMeal extends React.Component{
                     meal[key]+=parseFloat(fixNumber(value*(item.weight/100)));
                 })
         })
-        this.setState({meal:meal,display:"table"});
+        this.setState({meal:meal});
     }
     onSaveMeal=()=>{
         if(this.props.items.length==0)
@@ -192,7 +191,7 @@ class ViewMeal extends React.Component{
         .done((data)=>{
             if(data==1){
                 alert("הארוחה נשמרה בהצלחה");
-                this.setState({meal:{},display:"none"});
+                this.setState({meal:{}});
                 this.props.clearItems();
             }
             offSpinner();
@@ -207,14 +206,17 @@ class ViewMeal extends React.Component{
         this.props.clearItems();
     }
     render(){
+        const style={
+            animation: "slide 2000ms"
+        }
         return(
-            <div class="view-meal-box" style={{display:this.state.display}}>
+            <div class="view-meal-box" style={style}>
                 {/*list items of all meal */}
                 <ul class="list-item">
                     {
                     this.props.items.map((elm)=>{
                         return(
-                            <li onClick={()=>{this.props.onRemoveItem(elm.id)}}>
+                            <li onClick={()=>{this.props.onRemoveItem(elm.index)}}>
                                 {elm.name+" "+elm.weight+" גרם "}
                             </li>
                         )
