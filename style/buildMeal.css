@@ -24,13 +24,13 @@
     margin-top: 10px;
     border: 1px solid black;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
 }
 .preview-item-table tr > td{
     border-bottom: 1px solid black;
 }
 .preview-item-table tr > th{
-    font-size: 22px;
+    font-size: 20px;
 }
 #auto-complete-input{
     outline: none;
@@ -55,16 +55,6 @@
     border-radius: 3px;
     box-shadow: 2px 2px 4px black;
     color: #fff;
-}
-.view-meal-box{
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 15px;
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px black;
-    background-color: rgba(255, 255, 255, 0.829);
 }
 .my-meals-wrapper{
     position: absolute;
@@ -118,4 +108,39 @@
     box-shadow: 1px 1px 2px black;
     margin-right: 25px;
     font-size: 16px;
+  }
+  .view-meal-box{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 10px;
+    left: 10px;
+    max-height: 600px;
+    max-width: 250px;
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px black;
+    background-color: rgba(255, 255, 255, 0.829);
+  }
+  .list-item{
+    list-style: none;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .list-item > li {
+      cursor: pointer;
+      text-align: right;
+      font-size: 14px;
+      padding: 5px;
+  }
+  .list-item > li:hover::before{
+      content: " X ";
+      font-size: 20px;
+      color: red;
+      transition: all 500ms linear;
   }

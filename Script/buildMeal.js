@@ -20,6 +20,8 @@ function fixNumber(n){
     else
         return (n.toFixed(1));
 }
+
+
 /*חיפוש עם השלמה אוטומטית*/
 class SearchItem extends React.Component {
     state = {
@@ -101,12 +103,17 @@ class ViewItem extends React.Component {
         let arrItems = this.state.items;
         let objItems = this.state.item;
         objItems.weight = this.state.weight;
+        objItems.index = arrItems.length;
         arrItems.push(this.state.item);
         this.setState({items:arrItems,display:"none",weight:100});
         document.getElementById('weigth-input').value="";
     }
     handleOnClearItems=()=>{
         this.setState({items:[]});
+    }
+    removeItem=(index)=>{
+        const arr = this.state.items.filter(elm => elm.index!==index);
+        this.setState({items:arr});
     }
     render(){
         return(
@@ -129,7 +136,10 @@ class ViewItem extends React.Component {
                     </tbody>
                     <tr><th><button class="btn-add-item" onClick={this.onAddItem}>הוסף לתפריט</button></th></tr>
                 </table>
-                <ViewMeal items={this.state.items} clearItems={this.handleOnClearItems}/>
+                <ViewMeal 
+                    items={this.state.items}
+                    clearItems={this.handleOnClearItems}
+                    onRemoveItem={this.removeItem}/>
             </div>
         );
     }
@@ -140,9 +150,6 @@ class ViewMeal extends React.Component{
         display: "none"
     }
     componentWillReceiveProps(nextProps) {
-        if(nextProps.items.length==0){
-            return;
-        }
         let meal = {
             'calories': 0,
             'proteins': 0,
@@ -155,6 +162,10 @@ class ViewMeal extends React.Component{
             'sugar': 0,     
             'sodium': 0,     
             'calcium': 0,  
+        }
+        if(nextProps.items.length==0){
+            this.setState({meal:meal,display:"table"});
+            return;
         }
         nextProps.items.map((item)=>{
             Object.entries(item).map(([key,value])=>{
@@ -192,26 +203,25 @@ class ViewMeal extends React.Component{
         })
     }
     onClearMeal=()=>{
-        let meal = {
-            'calories': 0,
-            'proteins': 0,
-            'carbohydrates': 0,
-            'fats': 0,
-            'saturated_fat': 0, 
-            'trans_fat': 0, 
-            'cholesterol': 0,   
-            'fiber': 0,         
-            'sugar': 0,     
-            'sodium': 0,     
-            'calcium': 0,  
-        }
-        this.setState({meal:meal});
+        this.setState({meal:{}});
         this.props.clearItems();
     }
     render(){
         return(
             <div class="view-meal-box" style={{display:this.state.display}}>
-                <table class="preview-item-table">
+                {/*list items of all meal */}
+                <ul class="list-item">
+                    {
+                    this.props.items.map((elm)=>{
+                        return(
+                            <li onClick={()=>{this.props.onRemoveItem(elm.id)}}>
+                                {elm.name+" "+elm.weight+" גרם "}
+                            </li>
+                        )
+                    })
+                    }
+                </ul>
+                <table class="preview-item-table" style={{width:"100%"}}>
                     <thead>
                     <tr><th>הארוחה שלך</th></tr>
                     </thead>
