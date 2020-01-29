@@ -1,17 +1,22 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('Asia/Jerusalem');
+
+require_once "./log.php";
+
+$log = new Log();
+
 class DB {
     private $_conn = null;
     function __construct(){
-        //$this->conn = new mysqli('localhost','root','');
-        $this->conn = new mysqli('kcpgm0ka8vudfq76.chr7pe7iynqr.eu-west-1.rds.amazonaws.com','wyiy1lfip0r1xowb','fbncp44fm0xh4mwt');
+        $this->conn = new mysqli('localhost','root','');
+        //$this->conn = new mysqli('kcpgm0ka8vudfq76.chr7pe7iynqr.eu-west-1.rds.amazonaws.com','wyiy1lfip0r1xowb','fbncp44fm0xh4mwt');
         if($this->conn->connect_errno)
             die('Connected error!');
         else {
             $this->conn->set_charset("utf8");
-            mysqli_select_db($this->conn,"s9mcqbi68iftky1b");
-            //mysqli_select_db($this->conn,"food_items");
+            //mysqli_select_db($this->conn,"s9mcqbi68iftky1b");
+            mysqli_select_db($this->conn,"food_items");
         }
     }
     public function insertClient($fn,$ln,$date,$weight,$heigth,$email,$pass,$gender){
@@ -45,14 +50,14 @@ class DB {
             //set all items of meal in table meal_item
             foreach ($meal_items as $val) {
                 if($this->conn->query("INSERT INTO meal_item (id_meal,id_item,gram) VALUES($id_meal,$val->id,$val->weight);")===FALSE){
-                    error_log(date("Y-m-d H:i")."\nerror with set item of meal: ".mysqli_error($this->conn)."\n", 3,"./php/log/error.log");
+                    $log->writeErrorLog("error with set item of meal: ".mysqli_error($this->conn));
                     return -1; // some error with insert meal item
                 }
             }
             return 1; // success insert meal items
         }
         else{
-            error_log(date("Y-m-d H:i")."\nerror with setMeal: ".mysqli_error($this->conn)."\n", 3,"./php/log/error.log");
+            $log->writeErrorLog("error with setMeal: ".mysqli_error($this->conn));
             return -1;
         }
     }
@@ -132,7 +137,7 @@ class DB {
         if ($this->conn->query($sql) === TRUE) {
             return 1;
         } else {
-            error_log(date("Y-m-d H:i")."\nerror on delete item: ".mysqli_error($this->conn)."\n", 3,"./php/log/error.log");
+            $log->writeErrorLog("error on delete item: ".mysqli_error($this->conn));
             return -1;
         }
     }
