@@ -2,12 +2,12 @@
 header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('Asia/Jerusalem');
 
-require_once "./log.php";
+require_once "./php/Log.php";
 
 $log = new Log();
 
 class DB {
-    private $_conn = null;
+    private $conn = null;
     function __construct(){
         $this->conn = new mysqli('localhost','root','');
         //$this->conn = new mysqli('kcpgm0ka8vudfq76.chr7pe7iynqr.eu-west-1.rds.amazonaws.com','wyiy1lfip0r1xowb','fbncp44fm0xh4mwt');
@@ -15,9 +15,12 @@ class DB {
             die('Connected error!');
         else {
             $this->conn->set_charset("utf8");
-            //mysqli_select_db($this->conn,"s9mcqbi68iftky1b");
-            mysqli_select_db($this->conn,"food_items");
+            mysqli_select_db($this->conn,"s9mcqbi68iftky1b");
+            //mysqli_select_db($this->conn,"food_items");
         }
+    }
+    public function getConn(){
+        return $this->conn;
     }
     public function insertClient($fn,$ln,$date,$weight,$heigth,$email,$pass,$gender){
         $sql = "INSERT INTO client (first_name, last_name, date, weight,heigth,email,password,gender)
