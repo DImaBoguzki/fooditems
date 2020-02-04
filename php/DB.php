@@ -2,9 +2,13 @@
 header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('Asia/Jerusalem');
 
-require_once "./php/Log.php";
-
-$log = new Log();
+if(@include("./php/Log.php"))
+    $log = new Log();
+else if( @include("./Log.php"))
+    $log = new Log();
+else {
+    die("cant include log.php file");
+}
 
 class DB {
     private $conn = null;
@@ -27,7 +31,7 @@ class DB {
                 VALUES ('$fn', '$ln', '$date', '$weight','$heigth','$email','$pass','$gender');";
         if ($this->conn->query($sql) === TRUE){
             return 1; // save client
-        }else return mysqli_error($this->conn); // some problem
+        } else return mysqli_error($this->conn); // some problem
     }
     public function getClientByEmail($email){
         $sql = "SELECT * FROM client WHERE email='".$email."';";
