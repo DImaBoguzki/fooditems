@@ -9,8 +9,8 @@ $log = new Log();
 class DB {
     private $conn = null;
     function __construct(){
-        $this->conn = new mysqli('localhost','root','');
-        //$this->conn = new mysqli('kcpgm0ka8vudfq76.chr7pe7iynqr.eu-west-1.rds.amazonaws.com','wyiy1lfip0r1xowb','fbncp44fm0xh4mwt');
+        //$this->conn = new mysqli('localhost','root','');
+        $this->conn = new mysqli('kcpgm0ka8vudfq76.chr7pe7iynqr.eu-west-1.rds.amazonaws.com','wyiy1lfip0r1xowb','fbncp44fm0xh4mwt');
         if($this->conn->connect_errno)
             die('Connected error!');
         else {
